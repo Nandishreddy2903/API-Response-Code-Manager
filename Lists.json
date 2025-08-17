@@ -1,0 +1,16 @@
+{
+  "_id": "ObjectId('...')",
+  "userId": "ObjectId('...')",
+  "name": "My 2xx Responses",
+  "responseCodes": [
+    {
+      "code": "200",
+      "image": "https://http.dog/200.jpg"
+    },
+    {
+      "code": "201",
+      "image": "https://http.dog/201.jpg"
+    }
+  ],
+  "createdAt": "2023-10-01T12:00:00.000Z"
+}
