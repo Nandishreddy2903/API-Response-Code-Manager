@@ -1,84 +1,63 @@
-API Response Code Manager 🐶
+# API Response Code Manager 🐶
 
-This project is a simple web application to explore, filter, save, and manage lists of HTTP response codes with corresponding dog images from http.dog.
+This project is a simple web application to explore, filter, save, and manage lists of HTTP response codes with corresponding dog images from [http.dog](https://http.dog/).
 
-📌 Features
+---
 
-Authentication
+## 📌 Features
+1. **Authentication**
+   - Login / Signup for users.
+   - Only logged-in users can save lists.
 
-Login / Signup for users.
+2. **Search Page**
+   - Filter response codes:
+     - Examples:
+       - `203` → shows only 203 response code dog image.
+       - `2xx` → shows all codes starting with 2 (200–299).
+       - `20x` → shows all codes starting with 20 (200–209).
+       - `3xx` → shows all codes starting with 3 (300–399).
+       - `21x` → shows codes starting with 21 (210–219).
+   - Displays dog images based on filter.
+   - Save filter results as a **list**.
 
-Only logged-in users can save lists.
+3. **Lists Page**
+   - View all saved lists (with name, creation date, response codes, and image links).
+   - Select a list to view images.
+   - Edit or delete lists.
 
-Search Page
+---
 
-Filter response codes:
+## 📂 Pages Overview
+1. **Login/Signup Page**
+   - User authentication.
 
-Examples:
+2. **Search Page**
+   - Input filter (e.g., `2xx`, `20x`, `203`).
+   - Display corresponding dog images.
+   - Save the filtered list.
 
-203 → shows only 203 response code dog image.
+3. **Lists Page**
+   - Display saved lists with metadata.
+   - Select list → show images.
+   - Edit or delete a list.
 
-2xx → shows all codes starting with 2 (200–299).
+---
 
-20x → shows all codes starting with 20 (200–209).
+## 🛠️ Tech Stack (Suggested)
+- **Frontend:** React / HTML + CSS + JS
+- **Backend:** Node.js + Express
+- **Database:** MongoDB (to store users & lists)
+- **API Source:** [http.dog](https://http.dog/)
 
-3xx → shows all codes starting with 3 (300–399).
+---
 
-21x → shows codes starting with 21 (210–219).
+## ⚙️ Environment Variables (`.env`)
+Create a `.env` file in the **backend folder** with the following variables:
 
-Displays dog images based on filter.
-
-Save filter results as a list.
-
-Lists Page
-
-View all saved lists (with name, creation date, response codes, and image links).
-
-Select a list to view images.
-
-Edit or delete lists.
-
-📂 Pages Overview
-
-Login/Signup Page
-
-User authentication.
-
-Search Page
-
-Input filter (e.g., 2xx, 20x, 203).
-
-Display corresponding dog images.
-
-Save the filtered list.
-
-Lists Page
-
-Display saved lists with metadata.
-
-Select list → show images.
-
-Edit or delete a list.
-
-🛠️ Tech Stack (Suggested)
-
-Frontend: React / HTML + CSS + JS
-
-Backend: Node.js + Express
-
-Database: MongoDB (to store users & lists)
-
-API Source: http.dog
-
-⚙️ Environment Variables (.env)
-
-Create a .env file in the backend folder with the following variables:
-
+```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/api_response_code_manager
 JWT_SECRET=your-secret-key
-
-
 PORT → The port for your backend server.
 
 MONGO_URI → MongoDB connection string (local or Atlas).
@@ -86,7 +65,6 @@ MONGO_URI → MongoDB connection string (local or Atlas).
 JWT_SECRET → Secret key for signing JWT tokens (change in production).
 
 📖 Example Workflow
-
 User signs up and logs in.
 
 On the Search Page, user filters by 2xx.
@@ -106,19 +84,23 @@ Image links
 On the Lists Page, user sees all their lists and can view, edit, or delete them.
 
 🚀 Getting Started
-
 Clone repo and install dependencies:
 
+bash
+Copy
+Edit
 git clone <repo-url>
 cd project-folder
 npm install
-
-
 Start backend:
 
+bash
+Copy
+Edit
 npm run server
-
-
 Start frontend:
 
+bash
+Copy
+Edit
 npm start
