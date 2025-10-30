@@ -126,7 +126,7 @@
             <div id="results"></div>
             <button id="saveList" style="display:none;">Save List</button>
 
-
+            <!-- Inline Save List Field -->
             <div id="listNameContainer">
                 <input type="text" id="listNameInput" placeholder="Enter List Name">
                 <button id="confirmSave">Save</button>
@@ -237,7 +237,7 @@
             const token = localStorage.getItem('token');
             if (!token) return window.location.href = 'login.html';
 
-            fetch('https://api-response-code-manager.onrender.com/api/lists', {
+            fetch('https://https://api-response-code-manager.onrender.com/api/lists', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ name: listName, images: currentList })
