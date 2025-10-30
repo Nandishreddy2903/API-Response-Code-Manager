@@ -164,7 +164,7 @@
 
         async function fetchLists() {
             try {
-                const response = await fetch('https://httpdog.onrender.com/api/lists', {
+                const response = await fetch('https://api-response-code-manager.onrender.com/api/lists', {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -203,7 +203,7 @@ async function changeListName(listId, element) {
     element.contentEditable = 'false';
 
     try {
-        const response = await fetch(`https://httpdog.onrender.com/api/lists/${listId}`, {
+        const response = await fetch(`https://api-response-code-manager.onrender.com/api/lists/${listId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ async function deleteDesired(listId) {
                             .map(img => ({ code: parseInt(img.alt.split(' ')[5]), image: img.src }));
 
     try {
-        const response = await fetch(`https://httpdog.onrender.com/api/lists/${listId}`, {
+        const response = await fetch(`https://api-response-code-manager.onrender.com/api/lists/${listId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -327,7 +327,7 @@ async function deleteDesired(listId) {
                             .map(img => ({ code: parseInt(img.alt.split(' ')[5]), image: img.src }));
 
             try {
-                const response = await fetch(`https://httpdog.onrender.com/api/lists/${listId}`, {
+                const response = await fetch(`https://api-response-code-manager.onrender.com/api/lists/${listId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -352,7 +352,7 @@ async function deleteDesired(listId) {
             if (!confirm("Are you sure you want to delete this list?")) return;
 
             try {
-                const response = await fetch(`https://httpdog.onrender.com/api/lists/${listId}`, {
+                const response = await fetch(`https://api-response-code-manager.onrender.com/api/lists/${listId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -379,7 +379,7 @@ async function deleteDesired(listId) {
             }
 
             try {
-                await fetch(`https://httpdog.onrender.com/api/lists/${listId}`, {
+                await fetch(`https://api-response-code-manager.onrender.com/api/lists/${listId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
