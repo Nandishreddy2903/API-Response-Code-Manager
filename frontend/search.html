@@ -237,7 +237,7 @@
             const token = localStorage.getItem('token');
             if (!token) return window.location.href = 'login.html';
 
-            fetch('https://httpdog.onrender.com/api/lists', {
+            fetch('https://api-response-code-manager.onrender.com/api/lists', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ name: listName, images: currentList })
