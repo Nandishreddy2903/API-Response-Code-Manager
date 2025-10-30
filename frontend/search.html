@@ -1,128 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search - API Response Code Manager</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Search for Dogs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7f8fa;
+        body, html {
             margin: 0;
             padding: 0;
-        }
-
-        header {
-            background: #007bff;
-            color: white;
-            padding: 1rem;
-            text-align: center;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
         }
 
         .container {
-            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
             max-width: 800px;
-            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4A4A4A;
         }
 
         form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1rem;
+            margin-bottom: 20px;
         }
 
-        input[type="text"] {
-            flex: 1;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        input {
+            padding: 12px;
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 60%;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6e8efb;
         }
 
         button {
-            padding: 10px 15px;
-            border: none;
-            background: #007bff;
+            padding: 12px 20px;
+            background-color: #6e8efb;
             color: white;
-            border-radius: 5px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background: #0056b3;
+            background-color: #a777e3;
         }
 
         #results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             margin-top: 20px;
         }
 
-        img {
-            width: 100%;
-            border-radius: 10px;
-            border: 3px solid transparent;
+        #results img {
+            width: 150px;
+            height: auto;
+            margin: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
             cursor: pointer;
-            transition: 0.2s;
+            border: 2px solid transparent;
         }
 
-        img:hover {
-            transform: scale(1.03);
+        #results img:hover {
+            transform: scale(1.05);
         }
 
-        .selected {
-            border: 3px solid #28a745;
-            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
-        }
-
-        #saveList {
-            display: none;
-            background-color: #28a745;
+        #results img.selected {
+            border-color: green;
         }
 
         #listNameContainer {
+            margin-top: 20px;
             display: none;
-            margin-top: 15px;
         }
 
-        #listNameInput {
-            padding: 8px;
-            width: 70%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        nav a {
+            text-decoration: none;
+            margin: 0 10px;
+            color: #6e8efb;
         }
 
-        #confirmSave {
-            background: #28a745;
-            margin-left: 10px;
-        }
-
-        #confirmSave:hover {
-            background: #218838;
+        nav a:hover {
+            color: #a777e3;
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <h1>API Response Code Manager</h1>
-    </header>
-
     <div class="container">
-        <form id="searchForm">
-            <input type="text" id="statusCode" placeholder="Enter status code (e.g. 200, 2xx, 20x)" required>
-            <button type="submit">Search</button>
-        </form>
+        <header>
+            <h1>Search for Dog Images</h1>
+            <div class="styled-links">
+                <a href="lists.html">My Lists</a>
+                <a href="logout.html">Log Out</a>
+            </div>
+        </header>
+        <main>
+            <form id="searchForm">
+                <input type="text" id="statusCode" placeholder="Enter Status Code or Pattern (e.g., 203, 2xx, 20x)" required>
+                <button type="submit">Search</button>
+            </form>
+            <div id="results"></div>
+            <button id="saveList" style="display:none;">Save List</button>
 
-        <div id="results"></div>
-
-        <button id="saveList">Save Selected</button>
-
-        <div id="listNameContainer">
-            <input type="text" id="listNameInput" placeholder="Enter list name">
-            <button id="confirmSave">Save</button>
-        </div>
+            <div id="listNameContainer">
+                <input type="text" id="listNameInput" placeholder="Enter List Name">
+                <button id="confirmSave">Save</button>
+            </div>
+        </main>
     </div>
+
+    <style>
+        .styled-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .styled-links a {
+            text-decoration: none;
+            color: white;
+            background-color: #6e8efb;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .styled-links a:hover {
+            background-color: #a777e3;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .styled-links a:active {
+            background-color: #5b6fb7;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .styled-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .styled-links a {
+                width: 80%;
+                text-align: center;
+            }
+        }
+    </style>
 
     <script>
         const resultsDiv = document.getElementById('results');
@@ -141,15 +195,10 @@
 
         function generateCodes(statusCode) {
             const codes = [];
-            if (/^\d{3}$/.test(statusCode)) {
-                codes.push(parseInt(statusCode));
-            } else if (/^\d{1}xx$/.test(statusCode)) {
-                for (let i = 0; i < 100; i++) codes.push(parseInt(statusCode[0]) * 100 + i);
-            } else if (/^\d{2}x$/.test(statusCode)) {
-                for (let i = 0; i < 10; i++) codes.push(parseInt(statusCode.slice(0, 2)) * 10 + i);
-            } else {
-                alert('Invalid format. Use 203, 2xx, 20x, etc.');
-            }
+            if (/^\d{3}$/.test(statusCode)) codes.push(parseInt(statusCode));
+            else if (/^\d{1}xx$/.test(statusCode)) for (let i = 0; i < 100; i++) codes.push(parseInt(statusCode[0]) * 100 + i);
+            else if (/^\d{2}x$/.test(statusCode)) for (let i = 0; i < 10; i++) codes.push(parseInt(statusCode.slice(0, 2)) * 10 + i);
+            else alert('Invalid format. Use 203, 2xx, 20x, etc.');
             return codes;
         }
 
@@ -160,15 +209,15 @@
 
             codes.forEach(code => {
                 const img = document.createElement('img');
+                img.src = `https://http.dog/${code}.jpg`;
                 img.alt = `Dog image for status code ${code}`;
 
-                // 🐶 Try JPG → fallback to WEBP → fallback to 404 dog
-                img.src = `https://http.dog/${code}.jpg`;
+                // ✅ Added fallback for missing codes
                 img.onerror = () => {
+                    img.src = `https://http.dog/${code}.webp`; // try .webp version
                     img.onerror = () => {
-                        img.src = "https://http.dog/404.jpg"; // final fallback
+                        img.src = "https://http.dog/404.jpg"; // fallback if both fail
                     };
-                    img.src = `https://http.dog/${code}.webp`; // 2nd attempt
                 };
 
                 img.onload = () => {
@@ -203,24 +252,18 @@
 
             fetch('https://api-response-code-manager.onrender.com/api/lists', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ name: listName, images: currentList })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message === 'List saved successfully') {
-                    alert('✅ List saved successfully!');
+                    alert('List saved successfully!');
                     currentList = [];
                     listNameContainer.style.display = 'none';
                     listNameInput.value = '';
                     resultsDiv.innerHTML = '';
-                    saveListButton.style.display = 'none';
-                } else {
-                    alert(data.message || 'Error saving list.');
-                }
+                } else alert(data.message || 'Error saving list.');
             })
             .catch(error => console.error('Error:', error));
         });
