@@ -209,40 +209,27 @@
         currentList = [];
         saveListButton.style.display = 'none';
 
-        codes.forEach(async (code) => {
-            const jpgUrl = `https://http.dog/${code}.jpg`;
-            const webpUrl = `https://http.dog/${code}.webp`;
+        codes.forEach(code => {
+            const img = document.createElement('img');
+            img.src = `https://http.dog/${code}.jpg`;
+            img.alt = `Dog image for status code ${code}`;
 
-            try {
-                // ✅ Check if image actually exists before displaying
-                const res = await fetch(jpgUrl, { method: 'HEAD' });
+            // ✅ If the image fails (404, missing, etc.), remove it silently
+            img.onerror = () => {
+                img.remove();
+            };
 
-                if (res.ok) {
-                    addImage(jpgUrl, code);
-                } else {
-                    // Try .webp version
-                    const resWebp = await fetch(webpUrl, { method: 'HEAD' });
-                    if (resWebp.ok) addImage(webpUrl, code);
-                    // ❌ Skip code entirely if no image exists
-                }
-            } catch (err) {
-                console.error(`Error loading image for code ${code}`, err);
-            }
+            img.onload = () => {
+                img.addEventListener('click', () => toggleSelection(img, code));
+                resultsDiv.appendChild(img);
+            };
         });
-    }
-
-    function addImage(src, code) {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = `Dog image for status code ${code}`;
-        img.addEventListener('click', () => toggleSelection(img, code));
-        resultsDiv.appendChild(img);
     }
 
     function toggleSelection(img, code) {
         if (img.classList.contains('selected')) {
             img.classList.remove('selected');
-            currentList = currentList.filter((item) => item.code !== code);
+            currentList = currentList.filter(item => item.code !== code);
         } else {
             img.classList.add('selected');
             currentList.push({ code: code, image: img.src });
@@ -257,32 +244,28 @@
 
     confirmSaveButton.addEventListener('click', () => {
         const listName = listNameInput.value.trim();
-        if (!listName) return alert('Please enter a name for your list.');
+        if (!listName) return alert("Please enter a name for your list.");
 
         const token = localStorage.getItem('token');
-        if (!token) return (window.location.href = 'login.html');
+        if (!token) return window.location.href = 'login.html';
 
         fetch('https://api-response-code-manager.onrender.com/api/lists', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ name: listName, images: currentList }),
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ name: listName, images: currentList })
         })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.message === 'List saved successfully') {
-                    alert('List saved successfully!');
-                    currentList = [];
-                    listNameContainer.style.display = 'none';
-                    listNameInput.value = '';
-                    resultsDiv.innerHTML = '';
-                } else alert(data.message || 'Error saving list.');
-            })
-            .catch((error) => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'List saved successfully') {
+                alert('List saved successfully!');
+                currentList = [];
+                listNameContainer.style.display = 'none';
+                listNameInput.value = '';
+                resultsDiv.innerHTML = '';
+            } else alert(data.message || 'Error saving list.');
+        })
+        .catch(error => console.error('Error:', error));
     });
 </script>
-
 </body>
 </html>
